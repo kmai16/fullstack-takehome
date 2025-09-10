@@ -7,7 +7,7 @@ A GraphQL API server built with Rust using async-graphql, Axum, and PostgreSQL.
 - **GraphQL API** with schema introspection
 - **PostgreSQL integration** with SQLx
 - **Advanced filtering** using custom procedural macros
-- **Nested resolvers** for relational data
+- **Relational data support** with user-post relationships
 - **CORS support** for frontend integration
 - **GraphiQL interface** for API exploration
 
@@ -61,9 +61,22 @@ src/
    ```
 
 3. **Run the Server**:
+
+   **Option A: Using Docker (Recommended)**:
    ```bash
+   docker-compose up --build
+   ```
+
+   **Option B: Using Cargo (Alternative)**:
+   ```bash
+   # Start only PostgreSQL with Docker
+   docker-compose up -d postgres
+   
+   # Run the Rust server locally
    DATABASE_URL=postgres://postgres:password@localhost:5432/graphql_db cargo run
    ```
+
+   **For AWS/Cloud deployment**: Ensure your security group allows inbound traffic on port 8000.
 
 ## Endpoints
 
@@ -73,7 +86,7 @@ src/
 
 ## GraphQL Features
 
-### Queries
+### Basic Queries
 
 ```graphql
 # Get all users
@@ -82,75 +95,34 @@ query {
     id
     name
     email
-    posts {
-      id
-      title
-      created_at
-    }
   }
 }
 
-# Get posts with user information
+# Get all posts
 query {
   posts {
     id
     title
-    user {
-      name
-      email
-    }
   }
 }
 ```
 
-### Advanced Filtering
+### Filtering
 
 ```graphql
 # Filter users by name and age
 query {
   users(filters: {
-    name: { contains: "John" }
-    age: { gte: 18, lt: 65 }
+    name: { someFilter: "John" }
   }) {
     name
-    age
-    posts {
-      title
-    }
-  }
-}
-
-# Filter posts by title
-query {
-  posts(filters: {
-    title: { contains: "Rust" }
-  }) {
-    title
-    user {
-      name
-    }
   }
 }
 ```
 
 ### Filter Operators
 
-**Integer Filters:**
-- `equals` - Exact match
-- `gt` - Greater than
-- `lt` - Less than
-- `gte` - Greater than or equal
-- `lte` - Less than or equal
-
-**String Filters:**
-- `equals` - Exact match
-- `contains` - Substring search
-- `starts_with` - Prefix match
-- `ends_with` - Suffix match
-
-## Custom Procedural Macros
-
-The project includes a custom `FilterBuilder` derive macro that automatically generates SQL WHERE clauses from GraphQL filter input types. This demonstrates advanced Rust metaprogramming capabilities.
+Available filter operators for each type can be found by exploring the GraphQL schema in GraphiQL at `http://localhost:8000/graphiql`.
 
 ## Development
 
@@ -174,9 +146,19 @@ The database includes sample users and posts for testing:
 - **Jane Smith** - 3 posts about web development
 - **Bob Johnson** - 4 posts about DevOps
 
+## Documentation
+
+For advanced GraphQL features like nested resolvers and relational queries, see the [async-graphql documentation](https://async-graphql.github.io/async-graphql/en/index.html).
+
 ## Architecture Notes
 
-- **Nested Resolvers**: Users can fetch their posts, posts can fetch their author
-- **Lazy Loading**: Related data is only fetched when requested in the query
 - **Type Safety**: Full compile-time type checking with Rust and SQLx
 - **SQL Injection Protection**: Uses parameterized queries throughout
+- **Custom Macros**: Procedural macros for automatic filter generation
+
+Diagrams for reference:
+## System Architecture
+![System Architecture](./diagrams/architecture_diag.png)
+
+## ERD
+![ERD](./diagrams/erd_diag.png)
