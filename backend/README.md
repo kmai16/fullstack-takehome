@@ -28,7 +28,7 @@ src/
 ├── resolvers.rs     # GraphQL resolvers and schema definitions
 ├── cors.rs          # CORS middleware configuration
 ├── lib.rs           # Custom procedural macros for filter building
-└── db.rs            # Database utilities (unused in current setup)
+└── db.rs            # Database utilities
 ```
 
 ## Database Schema
@@ -82,7 +82,6 @@ src/
 
 - **GraphQL API**: `POST http://localhost:8000/graphql`
 - **GraphiQL IDE**: `GET http://localhost:8000/graphiql`
-- **GraphiQL IDE (alt)**: `GET http://localhost:8000/`
 
 ## GraphQL Features
 
@@ -138,6 +137,16 @@ The server expects a `DATABASE_URL` environment variable or defaults to:
 ```
 postgres://postgres:password@localhost:5432/graphql_db
 ```
+
+### Database GUI Connection
+
+To connect with database GUI tools (pgAdmin, DBeaver, etc.):
+- **Host**: `localhost` (or your VM's IP address)
+- **Port**: `5432`
+- **Database**: `graphql_db`
+- **Username**: `postgres`
+- **Password**: `password`
+- **Connection String**: `postgres://postgres:password@localhost:5432/graphql_db`
 
 ## Sample Data
 
