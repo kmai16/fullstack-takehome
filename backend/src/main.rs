@@ -35,7 +35,7 @@ async fn main() {
         .layer(cors_layer());
 
     println!("GraphQL endpoint: http://localhost:8000/graphql");
-    println!("GraphiQL IDE (root): http://localhost:8000/");
+    println!("GraphiQL IDE (root): http://localhost:8000/ OR http://localhost:8000/graphiql");
 
     axum::serve(TcpListener::bind("0.0.0.0:8000").await.unwrap(), app)
         .await

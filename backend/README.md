@@ -123,12 +123,37 @@ query {
 
 Available filter operators for each type can be found by exploring the GraphQL schema in GraphiQL at `http://localhost:8000/graphiql`.
 
+## Your Tasks
+
+### Required Tasks
+
+1. **Extend the Posts Data Model**
+   - The `Post` struct in `src/resolvers.rs` currently has basic fields
+   - You need to add a new field to store post content/body text
+   - Consider what data type is most appropriate for storing longer text content
+
+2. **Update Database Schema**
+   - Ensure your database schema supports the new field you're adding
+   - The `init.sql` file contains the initial database setup
+   - Consider how existing posts should handle the new field
+
+3. **Update GraphQL Schema**
+   - Make sure your new field is exposed through the GraphQL API
+   - Test your changes using the GraphQL playground at `http://localhost:8000/graphql`
+   - Ensure the field is queryable and properly typed
+
+### Technical Notes
+- The project uses async-graphql for GraphQL implementation
+- SQLx is used for database interactions with PostgreSQL
+- The FilterBuilder macro provides automatic filter generation
+- Database queries support comprehensive filtering options
+
 ## Development
 
 ### CORS Configuration
 
 The server is configured to accept requests from:
-- `http://localhost:5174` (Vite dev server)
+- `http://localhost:5173` (Vite dev server)
 - `http://localhost:8000` (same-origin for GraphiQL)
 
 ### Database Connection
