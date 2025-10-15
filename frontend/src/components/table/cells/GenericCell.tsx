@@ -1,7 +1,7 @@
-export const GenericCell = () => {
+export const GenericCell = (value: string | number | boolean | null | undefined) => {
     return (
         <div>
-            GenericCell
+            {value}
         </div>
     )
 }
