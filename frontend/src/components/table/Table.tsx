@@ -71,7 +71,7 @@ const TableContent = memo(() => {
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
-  
+
   if (loadingUsers) return <div className="p-4">Loading users...</div>
   if (errorUsers) return <div className="p-4 text-red-500">Error: {errorUsers.message}</div>
   
@@ -80,7 +80,7 @@ const TableContent = memo(() => {
 
   return (
     <div>
-    <table>
+      <table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
@@ -129,8 +129,8 @@ const TableContent = memo(() => {
             </tr>
           ))}
         </tfoot>
-    </table>
-    <table hidden={hoveredColumnIndex != 5}>
+      </table>
+      <table hidden={hoveredColumnIndex != 5}>
         <thead>
           <tr>
             <th>Title</th>
@@ -145,7 +145,7 @@ const TableContent = memo(() => {
             </tr>
           ))}
         </tbody>
-    </table>
+      </table>
     </div>
   )
 })
