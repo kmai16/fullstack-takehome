@@ -48,6 +48,7 @@ struct PostFilters {
     id: Option<IntFilter>,
     user_id: Option<IntFilter>,
     title: Option<StringFilter>,
+    body: Option<StringFilter>,
 }
 
 #[derive(FromRow)]
@@ -55,6 +56,7 @@ struct Post {
     id: i32,
     user_id: Option<i32>,
     title: Option<String>,
+    body: Option<String>,
     created_at: Option<DateTime<Utc>>,
     updated_at: Option<DateTime<Utc>>,
 }
@@ -112,6 +114,10 @@ impl Post {
 
     async fn title(&self) -> &Option<String> {
         &self.title
+    }
+
+    async fn body(&self) -> &Option<String> {
+        &self.body
     }
 
     async fn created_at(&self) -> &Option<DateTime<Utc>> {
