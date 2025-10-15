@@ -40,9 +40,11 @@ const columns = [
   }),
 ]
 
-
-
 const TableContent = memo(() => {
+  const [hoveredColumnIndex, setHoveredColumnIndex] = useState<number>(-1);
+  const [hoveredRowIndex, setHoveredRowIndex] = useState<number>(-1);
+
+  console.log('hoveredRowIndex, hoveredColumnIndex', hoveredRowIndex, hoveredColumnIndex);
 
   const { data: usersData, loading: loadingUsers, error: errorUsers } = useQuery(GetUsersDocument, {
     variables: {
@@ -96,9 +98,14 @@ const TableContent = memo(() => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id}>
+            <tr key={row.id}
+                onMouseEnter={() => setHoveredRowIndex(row.index)}
+                onMouseLeave={() => setHoveredRowIndex(-1)}>
+            
+              {row.getVisibleCells().map((cell, index) => (
+                <td key={cell.id}               
+                onMouseEnter={() => setHoveredColumnIndex(index)}
+                onMouseLeave={() => setHoveredColumnIndex(-1)}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
