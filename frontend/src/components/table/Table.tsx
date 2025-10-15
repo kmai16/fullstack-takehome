@@ -44,8 +44,6 @@ const TableContent = memo(() => {
   const [hoveredColumnIndex, setHoveredColumnIndex] = useState<number>(-1);
   const [hoveredRowIndex, setHoveredRowIndex] = useState<number>(-1);
 
-  console.log('hoveredRowIndex, hoveredColumnIndex', hoveredRowIndex, hoveredColumnIndex);
-
   const { data: usersData, loading: loadingUsers, error: errorUsers } = useQuery(GetUsersDocument, {
     variables: {
       filters: {},
