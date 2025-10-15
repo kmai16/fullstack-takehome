@@ -79,6 +79,7 @@ const TableContent = memo(() => {
   if (errorPosts) return <div className="p-4 text-red-500">Error: {errorPosts.message}</div>
 
   return (
+    <div>
     <table>
         <thead>
           {table.getHeaderGroups().map(headerGroup => (
@@ -129,6 +130,23 @@ const TableContent = memo(() => {
           ))}
         </tfoot>
     </table>
+    <table hidden={hoveredColumnIndex != 5}>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Body</th>
+          </tr>
+        </thead>
+        <tbody>
+          {postData.filter(p => p.userId == userData[hoveredRowIndex]?.id).map(post => (
+            <tr key={post.id}>
+              <td>{post.title}</td>
+              <td>{post.body}</td>
+            </tr>
+          ))}
+        </tbody>
+    </table>
+    </div>
   )
 })
 
